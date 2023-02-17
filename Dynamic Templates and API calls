@@ -1,0 +1,39 @@
+Sending out a mail shot using a Dynamic Marketing template via an API call, with multiple recipients, 
+each with their own personalisations (variables). Opt-outs going to suppression list 29999.
+
+JSON payload example:
+
+{
+	"personalizations": [{
+		"to": [{
+			"email": "person1@test.com"
+		}],
+		"dynamic_template_data": {
+			"first_name": "John",
+			"last_name": "Smith"
+		}
+	}, {
+		"to": [{
+			"email": "person2@test.com"
+		}],
+		"dynamic_template_data": {
+			"first_name": "JohnPlusOne",
+			"last_name": "SmithPlusOne"
+		}
+	}],
+	"from": {
+		"email": "sendingaddress@test.com"
+	},
+	"template_id": "d-057aaa0xxxxxxxxxx0accd735eff7",
+	"asm": {
+		"group_Id": 29999
+	}
+}
+
+API example (curl):
+
+curl --request POST \
+--url https://api.sendgrid.com/v3/mail/send \
+--header 'Authorization: Bearer SG.3k[snip].[snip]-snip]' \
+--header 'Content-Type: application/json' \
+--data '{"personalizations":[{"to":[{"email":"person1@test.com"}], "dynamic_template_data":{"first_name":"John","last_name":"Smith"}},{"to":[{"email":"person2@test.com"}], "dynamic_template_data":{"first_name":"JohnPlusOne","last_name":"SmithPlusOne"}}], "from":{"email":"sendingaddress@test.com"},"template_id":"d-057aaa0xxxxxxxxxx0accd735eff7","asm":{"group_Id":29999}}'
